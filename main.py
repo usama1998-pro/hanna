@@ -33,18 +33,7 @@ AgilityModelInfoVecDb = Chroma(persist_directory="AgilityModelInfoVectorStore", 
 prompt_ = open("system-prompt.txt", "r").read()
 
 
-PROMPT = """Never make up the names or dimensions of the frameworks or models. If you don't know, don't mention the name of the dimensions and just mention the acronym.
-
-For ***MODEL DEFINITION v1.0*** file, this is the following properties:
-
-*Model Name:
-Components:
-Use:
-Additional Information:
-URL_FOR_THIS_MODEL:
-Autor:
-*End of Model Description
-
+PROMPT = prompt_ + """\n\n
 
 CONTEXT:
 {input_documents}"""

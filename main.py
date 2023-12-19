@@ -1,6 +1,6 @@
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# __import__('pysqlite3')
+# import sys
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 import os
 import streamlit as st
@@ -33,10 +33,7 @@ AgilityModelInfoVecDb = Chroma(persist_directory="AgilityModelInfoVectorStore", 
 prompt_ = open("system-prompt.txt", "r").read()
 
 
-PROMPT = prompt_ + """\n\n
-
-CONTEXT:
-{input_documents}"""
+PROMPT = str(prompt_)
 
 prompt = PromptTemplate.from_template(PROMPT)
 
@@ -53,8 +50,8 @@ st.markdown(f":orange[You asked: {user_query}]")
 if user_query:
     with get_openai_callback() as cb:
 
-        vec1 = AgilityModelVecDb.similarity_search(user_query, k=3)
-        vec2 = AgilityModelInfoVecDb.similarity_search(vec1[0].page_content, k=3)
+        vec1 = AgilityModelVecDb.similarity_search(user_query, k=1)
+        vec2 = AgilityModelInfoVecDb.similarity_search(vec1[0].page_content, k=1)
 
         st.text("Found information from Vector 1 according to your query!")
         st.write(vec1[0].page_content)
@@ -65,9 +62,9 @@ if user_query:
         try:
             chain = LLMChain(llm=llm, prompt=prompt)
 
-            final_vec = vec1[0].page_content + "\n\n" + vec2[0].page_content
+            final_vec = vec2[0].page_content + "\n" + vec1[0].page_content
 
-            response = chain.run(input_documents=final_vec, question=user_query)
+            response = chain.run(model=vec1[0].page_content, model_info=vec1[0].page_content, question=user_query)
 
             st.markdown(":green[Hannah]:")
             st.write(response)

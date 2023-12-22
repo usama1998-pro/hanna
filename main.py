@@ -51,13 +51,19 @@ if user_query:
     with get_openai_callback() as cb:
 
         # vec1 = AgilityModelVecDb.similarity_search(user_query, k=1)
-        vec2 = AgilityModelInfoVecDb.similarity_search(user_query, k=5)
+        vec2 = AgilityModelInfoVecDb.similarity_search(user_query, k=3)
 
         # st.text("Found information from Vector 1 according to your query!")
         # st.write(vec1[0].page_content)
 
-        st.text("Here is further information from Vector 2 for Vector 1:")
+        st.text("Context 1: ")
         st.write(vec2[0].page_content)
+
+        st.text("Context 2: ")
+        st.write(vec2[1].page_content)
+
+        st.text("Context 3: ")
+        st.write(vec2[2].page_content)
 
         try:
             chain = LLMChain(llm=llm, prompt=prompt)

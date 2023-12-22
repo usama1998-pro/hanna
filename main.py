@@ -1,6 +1,6 @@
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# __import__('pysqlite3')
+# import sys
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 import os
 import streamlit as st
@@ -51,7 +51,7 @@ if user_query:
     with get_openai_callback() as cb:
 
         vec1 = AgilityModelVecDb.similarity_search(user_query, k=1)
-        vec2 = AgilityModelInfoVecDb.similarity_search(vec1[0].page_content, k=1)
+        vec2 = AgilityModelInfoVecDb.similarity_search(user_query, k=1)
 
         st.text("Found information from Vector 1 according to your query!")
         st.write(vec1[0].page_content)

@@ -19,9 +19,6 @@ Never refer to people as resources, use the words Collective Capabilities.
 If you create a fictitious company, always use the name for the company MALO.
 Scrum and SAFe can deal with disruptions in products but can't deal with disruptions in a company's business model.
 
-Model:
-{model}
-
 
 Model Information:
 {model_info}

@@ -10,15 +10,23 @@ load_dotenv()
 
 # print(len(string))
 
-corpus_file = "corpus_info.txt"
-vec_name = "AgilityModelInfoVectorStore"
+# Data for AgilityModelInfoVectorStore -> corpus_info.txt
+# Data for AgilityModelVectorStore -> corpus.txt
+
+
+corpus_file = "corpus.txt"
+vec_name = "AgilityModelVectorStore"
 
 print(f"Reading File [{corpus_file}]...")
 corpus = io.open(corpus_file, "r", encoding="utf-8").read()
 
 
-size = 2000
+# Chunk size for AgilityModelInfoVectorStore -> 2000
+# Chunk size for AgilityModelVectorStore -> 700
+
+size = 700
 print(f"Splitting Text [chunk-size={size}]...")
+
 # Splitting document in to Text
 text_splitter = CharacterTextSplitter(chunk_overlap=0, chunk_size=size, length_function=len)
 document = text_splitter.split_text(corpus)

@@ -50,12 +50,13 @@ st.markdown(f":orange[You asked: {user_query}]")
 if user_query:
     with get_openai_callback() as cb:
 
-        # vec1 = AgilityModelVecDb.similarity_search(user_query, k=1)
+        vec1 = AgilityModelVecDb.similarity_search(user_query, k=1)
         vec2 = AgilityModelInfoVecDb.similarity_search(user_query, k=3)
 
-        # st.text("Found information from Vector 1 according to your query!")
-        # st.write(vec1[0].page_content)
+        st.text("Matching Agility model from Vec 1: ")
+        st.write(vec1[0].page_content)
 
+        st.text("More information from Vec 2: ")
         st.text("Context 1: ")
         st.write(vec2[0].page_content)
 
@@ -68,7 +69,7 @@ if user_query:
         try:
             chain = LLMChain(llm=llm, prompt=prompt)
 
-            response = chain.run(model_info=vec2, question=user_query)
+            response = chain.run(matching_model=vec1, model_info=vec2, question=user_query)
 
             st.markdown(":green[Hannah]:")
             st.write(response)

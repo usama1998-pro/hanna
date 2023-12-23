@@ -8,17 +8,28 @@ import io
 load_dotenv()
 
 
-corpus_file = "corpus_info.txt"
-vec_name = "AgilityModelInfoVectorStore"
+string = """*Model Name: Three Universal Outcomes
+Components: Always Ready, Always Responsive, and Always Innovative outcomes
+Use: The Three Universal Outcomes guide structuring interactions that enable sustainability for the customers, organization, and workforce regardless of the future.
+Additional Information:
+URL_FOR_THIS_MODEL: https://enterpriseagility.community/three-universal-outcomes-of-enterprise-agility-10fx9k4s11
+Autor: Erich R. Bühler and Enterprise Agility University
+*End of Model Description"""
+
+
+# print(len(string))
+
+corpus_file = "corpus.txt"
+vec_name = "AgilityModelVectorStore"
 
 print(f"Reading File [{corpus_file}]...")
 corpus = io.open(corpus_file, "r", encoding="utf-8").read()
 
 
-size = 1000
+size = 700
 print(f"Splitting Text [chunk-size={size}]...")
 # Splitting document in to Text
-text_splitter = CharacterTextSplitter(chunk_overlap=100, chunk_size=size, length_function=len)
+text_splitter = CharacterTextSplitter(chunk_overlap=0, chunk_size=size, length_function=len)
 document = text_splitter.split_text(corpus)
 
 print("Calling OpenAI Embeddings...")

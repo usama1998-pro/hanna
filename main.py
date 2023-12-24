@@ -108,7 +108,7 @@ if selected_option:
         with get_openai_callback() as cb:
 
             vec1 = AgilityModelVecDb.similarity_search(user_query, k=1)
-            vec2 = AgilityModelInfoVecDb.similarity_search(user_query, k=3)
+            vec2 = AgilityModelInfoVecDb.similarity_search(user_query, k=5)
 
             st.markdown("### Matching Agility model from Vec 1: ")
             st.write(vec1[0].page_content)
@@ -122,6 +122,12 @@ if selected_option:
 
             st.markdown("#### Context 3: ")
             st.write(vec2[2].page_content)
+
+            st.markdown("#### Context 4: ")
+            st.write(vec2[3].page_content)
+
+            st.markdown("#### Context 5: ")
+            st.write(vec2[4].page_content)
 
             try:
                 chain = LLMChain(llm=llm, prompt=prompt)
